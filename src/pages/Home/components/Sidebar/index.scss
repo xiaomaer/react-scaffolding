@@ -1,0 +1,16 @@
+.page-sidebar-list {
+  list-style-type: none;
+  .page-sidebar-item {
+    text-decoration: none;
+    display: block;
+    padding: 15px 20px;
+    color: hsla(0, 0%, 100%, .65);
+    &.page-sidebar-item-active {
+      background-color: #1890ff;
+      color: #fff;
+    }
+    &:hover {
+      color: #fff;
+    }
+  }
+}

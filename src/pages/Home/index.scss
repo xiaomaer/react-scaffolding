@@ -1,0 +1,23 @@
+.page {
+  .page-sidebars {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    background: #001529;
+  }
+  .page-content {
+    margin-left: 200px;
+  }
+  .page-title {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid gainsboro;
+  }
+  .page-main {
+    padding: 20px;
+  }
+}
