@@ -11,17 +11,17 @@ const routes = [
   {
     path: '/',
     exact: true,
-    title: () => <div>home title!</div>,
+    title: () => <div>home</div>,
     main: () => <h2>Home content</h2>,
   },
   {
     path: '/bubblegum',
-    title: () => <div>bubblegum title!</div>,
+    title: () => <div>bubblegum</div>,
     main: () => <h2>Bubblegum content</h2>,
   },
   {
     path: '/shoelaces',
-    title: () => <div>shoelaces title!</div>,
+    title: () => <div>shoelaces</div>,
     main: () => <h2>Shoelaces content</h2>,
   },
 ];
