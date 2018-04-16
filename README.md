@@ -17,7 +17,7 @@
 ## 安装与使用
 ```
 npm install react-create-cli -g
-create-react 
+create-react [projectName]
 cd [projectName]
 npm install
 ```
