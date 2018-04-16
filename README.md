@@ -14,12 +14,12 @@
 * node
 * npm
 
-## 使用
+## 安装与使用
 ```
-git clone
-cd react-scaffolding
+npm install react-create-cli -g
+create-react 
+cd [projectName]
 npm install
-npm start
 ```
 
 ## 命令
