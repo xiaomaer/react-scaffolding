@@ -5,11 +5,12 @@ const path = require('path');
 // 获取命令行参数
 const argv = require('yargs').argv;
 // 创建项目命令
-const pname = 'create-react';
+const createCli = 'create-react';
 
 if (argv._[0] === undefined) {
+  // 输入命令不全时，提示信息
   console.log('请输入项目名称');
-  console.log(`请执行: ${pname} [projectName]`);
+  console.log(`请执行: ${createCli} [projectName]`);
   return;
 }
 

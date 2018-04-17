@@ -1,5 +1,5 @@
-## React Scaffolding
-### react脚手架
+## 说明
+* 该项目通过react-create-cli创建
 
 ## 特性
 * react 
@@ -10,14 +10,9 @@
 * css/less/sass
 * webpack(v3)
 
-## 配置
-* node
-* npm
 
 ## 安装与使用
 ```
-npm install react-create-cli -g
-create-react [projectName]
 cd [projectName]
 npm install
 ```

@@ -1,8 +1,7 @@
 {
-  "name": "react-scaffolding",
+  "name": "project-name",
   "version": "1.0.0",
-  "description": "react脚手架",
-  "main": "index.js",
+  "description": "project description",
   "scripts": {
     "start": "webpack-dashboard -- webpack-dev-server --config config/webpack.config.dev.js",
     "dev": "webpack --config config/webpack.config.dev.js",
@@ -11,11 +10,7 @@
     "fix:src": "eslint --fix --ext .jsx --ext .js src",
     "fix:test": "eslint --fix  --ext .jsx --ext .js test"
   },
-  "keywords": [
-    "react",
-    "scaffold"
-  ],
-  "author": "xiaoma",
+  "author": "author",
   "license": "ISC",
   "dependencies": {
     "react": "^16.3.1",
