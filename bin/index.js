@@ -2,10 +2,21 @@
 
 const fs = require('fs');
 const path = require('path');
+// 解析命令行
+const yargs = require('yargs');
 // 获取命令行参数
-const argv = require('yargs').argv;
+const argv = yargs.argv;
 // 创建项目命令
 const createCli = 'create-react';
+const packageJson = require('../package.json');
+
+// create-react包括的命令(-v,-h)
+yargs.usage('Usage: create-react [options]')
+  .version(packageJson.version)
+  .alias('v', 'version')
+  .help('h')
+  .alias('h', 'help')
+  .argv
 
 if (argv._[0] === undefined) {
   // 输入命令不全时，提示信息
@@ -62,4 +73,4 @@ function copyDir(src, des, callback) {
       });
     }
   }
-}
+};
