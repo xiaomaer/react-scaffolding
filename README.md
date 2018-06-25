@@ -21,8 +21,14 @@ create-react [projectName]
 cd [projectName]
 npm install
 ```
+## create-react相关命令
+```
+create-react [projectName] 创建项目
+create-react -v 查看create-react版本号
+create-react -h 查看帮助
+```
 
-## 命令
+## 启动命令
 ```
 npm start：启动服务，支持热更新，默认端口9999
 npm run dev：开发环境打包
