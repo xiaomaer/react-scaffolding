@@ -23,37 +23,42 @@ module.exports = {
         test: /\.(js|jsx|mjs)$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-      }, {
-        exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.(css|scss|less)/],
-        loader: 'file-loader',
-        options: {
-          name: 'static/file/[name].[hash:8].[ext]',
-        },
-      }, {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'static/image/[name].[hash:8].[ext]'
-        }
       },
       {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
+        oneOf: [{
+            test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            loader: 'url-loader',
+            options: {
+              limit: 10000, // 小于10k，图片格式为base64
+              name: 'static/image/[name].[hash:8].[ext]'
+            }
+          },
+          {
+            test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'static/media/[name].[hash:8].[ext]'
+            }
+          },
+          {
+            test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'static/font/[name].[hash:8].[ext]'
+            }
+          },
+          {
+            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.(css|scss|less)/],
+            loader: 'file-loader',
+            options: {
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
+          },
+        ],
       },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'static/font/[name].[hash:8].[ext]'
-        }
-      },
-    ]
+    ],
   },
   plugins: [
     // Moment.js is an extremely popular library that bundles large locale files
