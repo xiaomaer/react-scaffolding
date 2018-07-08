@@ -17,7 +17,7 @@ const prodConfig = merge(baseWebpackConfig, {
   module: {
     rules: [{
         test: /\.css$/,
-        exclude: /node_modules/,
+        include: /node_modules/,
         loader: ExtractTextPlugin.extract({
           fallback: {
             loader: 'style-loader',
@@ -26,16 +26,13 @@ const prodConfig = merge(baseWebpackConfig, {
             },
           },
           use: [{
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1, // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
-                minimize: true,
-                sourceMap: true,
-              }
-            },
-            'postcss-loader',
-            'sass-loader'
-          ]
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1, // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
+              minimize: true,
+              sourceMap: true,
+            }
+          }, ]
         })
       },
       {
