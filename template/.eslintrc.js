@@ -62,6 +62,7 @@ module.exports = {
     "no-case-declarations": 1,
     "max-len": [2, 200],
     "no-restricted-globals": 0,
+    "object-curly-newline": ["error", { "consistent": true }],
 
     /* --------------react规则-------------- */
     // 防止使用JSX没有引入react
@@ -71,6 +72,16 @@ module.exports = {
     "react/no-array-index-key": 0,
     "react/no-string-refs": 1,
     "react/no-did-mount-set-state": 1,
+    // 有多行属性的话, 新建一行关闭标签;若能在一行中显示, 直接写成一行
+    "react/jsx-closing-bracket-location": 1,
+    // 总是在自动关闭的标签前加一个空格, 正常情况下不需要换行
+    "react/jsx-tag-spacing": [2, { "beforeSelfClosing": "always" }],
+    // 对于没有子元素的标签, 总是自关闭标签
+    "react/self-closing-comp": 2,
+    // 遵循生命周期顺序的规则来组织方法
+    "react/sort-comp": 1,
+    // 将多行 JSX 标签写在 ()里
+    "react/jsx-wrap-multilines": 2,
 
     /* --------------jsx-a11y规则-------------- */
     // 确保div等一些有点击事件的元素在使用点击事件时有role属性

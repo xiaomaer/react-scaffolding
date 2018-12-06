@@ -20,7 +20,7 @@ module.exports = merge(baseWebpackConfig, {
   module: {
     rules: [{
         test: /\.css$/,
-        exclude: /node_modules/,
+        include: /node_modules/,
         use: [
           'style-loader',
           {
@@ -29,7 +29,6 @@ module.exports = merge(baseWebpackConfig, {
               importLoaders: 1 // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
             }
           },
-          'postcss-loader',
         ]
       },
       {
