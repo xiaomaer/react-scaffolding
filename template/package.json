@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "project description",
   "scripts": {
-    "start": "webpack-dashboard -- webpack-dev-server --config config/webpack.config.dev.js",
-    "dev": "webpack --config config/webpack.config.dev.js",
+    "start": "webpack-dev-server --progress --color --config config/webpack.config.dev.js",
     "build": "webpack --config config/webpack.config.prod.js",
     "analyze": "NODE_ANALYZE=analyze webpack --config config/webpack.config.prod.js",
     "fix:src": "eslint --fix --ext .jsx --ext .js src",
@@ -18,7 +17,6 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "autoprefixer": "^8.6.4",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.4",
@@ -37,6 +35,7 @@
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
+    "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
@@ -50,7 +49,6 @@
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.14",
-    "webpack-dashboard": "^1.1.1",
     "webpack-dev-server": "^2.11.2",
     "webpack-merge": "^4.1.2"
   }

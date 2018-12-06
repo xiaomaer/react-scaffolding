@@ -4,8 +4,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //清空文件夹
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //打包模块分析
 const baseWebpackConfig = require('./webpack.config.base');
+
+console.log('building for production...');
 
 const prodConfig = merge(baseWebpackConfig, {
   devtool: 'source-map',
@@ -26,13 +27,15 @@ const prodConfig = merge(baseWebpackConfig, {
             },
           },
           use: [{
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1, // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
-              minimize: true,
-              sourceMap: true,
-            }
-          }, ]
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1, // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
+                minimize: true,
+                sourceMap: true,
+              }
+            },
+            'postcss-loader',
+          ]
         })
       },
       {
@@ -175,6 +178,7 @@ const prodConfig = merge(baseWebpackConfig, {
   ],
 });
 if (process.env.NODE_ANALYZE) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //打包模块分析
   prodConfig.plugins.push(new BundleAnalyzerPlugin());
 }
 module.exports = prodConfig;

@@ -2,20 +2,23 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const DashboardPlugin = require('webpack-dashboard/plugin'); //webpack日志面板
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const baseWebpackConfig = require('./webpack.config.base');
+const port = 9999;
 
 module.exports = merge(baseWebpackConfig, {
   devtool: 'cheap-module-source-map',
   devServer: {
     contentBase: path.join(__dirname, "public"),
     compress: true,
-    port: 9999,
+    port,
     historyApiFallback: true,
     hot: true,
     inline: true,
     quiet: true,
     publicPath: '/',
+    open: true,
+    quiet: true
   },
   module: {
     rules: [{
@@ -29,6 +32,7 @@ module.exports = merge(baseWebpackConfig, {
               importLoaders: 1 // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
             }
           },
+          'postcss-loader',
         ]
       },
       {
@@ -81,7 +85,10 @@ module.exports = merge(baseWebpackConfig, {
     // Add module names to factory functions so they appear in browser profiler.
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    // build logs
-    new DashboardPlugin(),
+    new FriendlyErrorsWebpackPlugin({
+      compilationSuccessInfo: {
+        messages: [`You application is running here http://localhost:${port}`],
+      },
+    }),
   ]
 })
