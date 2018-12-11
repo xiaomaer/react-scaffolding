@@ -1,5 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
+const HappyPack = require('happypack');
+const happyThreadPool = HappyPack.ThreadPool({
+  size: 5,
+});
 
 module.exports = {
   entry: {
@@ -12,6 +16,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
   module: {
     rules: [{
@@ -21,7 +26,7 @@ module.exports = {
         include: ['/src/', '/test/'],
       }, {
         test: /\.(js|jsx|mjs)$/,
-        loader: 'babel-loader',
+        use: 'happypack/loader?id=jsx',
         exclude: /node_modules/,
       },
       {
@@ -61,6 +66,11 @@ module.exports = {
     ],
   },
   plugins: [
+    new HappyPack({
+      id: 'jsx',
+      threadPool: happyThreadPool,
+      loaders: ['babel-loader?cacheDirectory']
+    }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical
     // solution that requires the user to opt into importing specific locales.
