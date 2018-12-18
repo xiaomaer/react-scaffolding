@@ -4,8 +4,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //清空文件夹
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //打包模块分析
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+// https://github.com/stephencookdev/speed-measure-webpack-plugin
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin"); // 每阶段打包时间统计
+const smp = new SpeedMeasurePlugin();
 const baseWebpackConfig = require('./webpack.config.base');
+
+console.log('building for production...');
 
 const prodConfig = merge(baseWebpackConfig, {
   devtool: 'source-map',
@@ -26,13 +31,15 @@ const prodConfig = merge(baseWebpackConfig, {
             },
           },
           use: [{
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1, // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
-              minimize: true,
-              sourceMap: true,
-            }
-          }, ]
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1, // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
+                minimize: true,
+                sourceMap: true,
+              }
+            },
+            'postcss-loader',
+          ]
         })
       },
       {
@@ -116,25 +123,19 @@ const prodConfig = merge(baseWebpackConfig, {
       }
     }),
     // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        // Disabled because of an issue with Uglify breaking seemingly valid code:
-        // https://github.com/facebookincubator/create-react-app/issues/2376
-        // Pending further investigation:
-        // https://github.com/mishoo/UglifyJS2/issues/2011
-        comparisons: false,
+    new ParallelUglifyPlugin({
+      cacheDir: '.cache/',
+      uglifyJS: {
+        compress: {
+          warnings: false,
+          comparisons: false,
+          drop_console: true,
+          pure_funcs: ['console.log']
+        },
+        output: {
+          comments: false
+        },
       },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        comments: false,
-        // Turned on because emoji and regex is not minified properly using default
-        // https://github.com/facebookincubator/create-react-app/issues/2488
-        ascii_only: true,
-      },
-      sourceMap: true,
     }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
@@ -175,6 +176,7 @@ const prodConfig = merge(baseWebpackConfig, {
   ],
 });
 if (process.env.NODE_ANALYZE) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //打包模块分析
   prodConfig.plugins.push(new BundleAnalyzerPlugin());
 }
-module.exports = prodConfig;
+module.exports = smp.wrap(prodConfig);
